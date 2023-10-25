@@ -1,0 +1,20 @@
+<div class="tourist-list">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Tourist Name</th>
+            <th>Invite</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let tourist of tourists">
+            <td>{{ tourist.username }}</td>
+            <td>
+            <button (click)="inviteTourist(tourist)">Invite</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<xp-club-members></xp-club-members>

@@ -1,0 +1,17 @@
+<table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.username }}</td>
+        <td>
+          <button (click)="removeUser(user)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
