@@ -8,6 +8,7 @@ import { PreferencesFormComponent } from './preferences-form/preferences-form.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
+import { ProblemComponent } from './problem/problem.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MatTableModule } from "@angular/material/table";
     GuideReviewComponent,
     GuideReviewFormComponent,
     PreferencesComponent,
-    PreferencesFormComponent
+    PreferencesFormComponent,
+    ProblemComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,7 @@ import { MatTableModule } from "@angular/material/table";
   ],
   exports: [
     GuideReviewComponent,
-    
+    ProblemComponent,
     PreferencesComponent
   ]
 })

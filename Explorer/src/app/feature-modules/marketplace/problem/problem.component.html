@@ -1,0 +1,27 @@
+<div id="problem">
+    <p>Problem</p>
+    <hr>
+    <div id="problem-details">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Naziv</th>
+                    <th>Opis</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of problem">
+                    <td>{{p.category}}</td>
+                    <td>{{p.priority}}</td>
+               </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <!-- <xp-equipment-form *ngIf="shouldRenderEquipmentForm" [shouldEdit]="shouldEdit" [equipment]="selectedEquipment" (equimpentUpdated)="getEquipment()"></xp-equipment-form> -->
+    </div>
+    </div>
+</div>

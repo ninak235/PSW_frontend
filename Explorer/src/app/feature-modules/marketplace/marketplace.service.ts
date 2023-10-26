@@ -11,7 +11,14 @@ import { Preferences } from "./model/preferences.model";
 })
 export class MarketplaceService {
 
+
+
   constructor(private http: HttpClient) { }
+
+  // getProblem(): Observable<PagedResults<Problem>> {
+  //   return this.http.get<PagedResults<Problem>>('https://localhost:44333/api/administration/problem')
+  // }
+
 
   getGuideReviews(): Observable<PagedResults<GuideReview>> {
     return this.http.get<PagedResults<GuideReview>>('https://localhost:44333/api/review/guideReview');
