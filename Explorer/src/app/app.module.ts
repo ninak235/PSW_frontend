@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdministrationModule } from './feature-modules/administration/administration.module';
 //import { MapComponent } from './shared/map/map.component';
 import { ClubModule } from './feature-modules/club/club.module';
+import { GoogleAnalyticsService } from './infrastructure/analytics/google-analytics.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -46,6 +47,7 @@ import { ClubModule } from './feature-modules/club/club.module';
       useClass: JwtInterceptor,
       multi: true,
     },
+    GoogleAnalyticsService,
   ],
   bootstrap: [AppComponent],
 })
