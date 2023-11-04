@@ -1,0 +1,18 @@
+<div>
+    <h2>Club List</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Club Name</th>
+          <th>Join</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let club of clubs">
+          <td>{{ club.name }}</td>
+          <td><button (click)="joinClub(club)">Join</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
