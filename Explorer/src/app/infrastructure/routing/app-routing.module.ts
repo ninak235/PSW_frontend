@@ -42,7 +42,10 @@ const routes: Routes = [
   // {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
   {path: 'accounts', component: AccountComponent, canActivate: [AuthGuard],},
   {path: 'blogPostComment', component: BlogPostCommentComponent, canActivate: [AuthGuard],},
+<<<<<<< HEAD
   {path: 'club', component: ClubComponent},
+=======
+>>>>>>> 340282f4e9fa8922adf1ab1cbcc5825feb963279
 
   {
     path: 'guideReview',
