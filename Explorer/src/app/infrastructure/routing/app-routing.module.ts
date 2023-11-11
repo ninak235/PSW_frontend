@@ -45,14 +45,7 @@ const routes: Routes = [
   { path: 'tourMap/:id', component: TourMapComponent },
   {path: 'accounts', component: AccountComponent, canActivate: [AuthGuard],},
   {path: 'blogPostComment', component: BlogPostCommentComponent, canActivate: [AuthGuard],},
-<<<<<<< HEAD
   {path: 'club', component: ClubComponent},
-<<<<<<< HEAD
-=======
->>>>>>> 340282f4e9fa8922adf1ab1cbcc5825feb963279
-
-=======
->>>>>>> development
   {
     path: 'guideReview',
     component: GuideReviewComponent,
