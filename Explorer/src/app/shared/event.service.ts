@@ -7,12 +7,4 @@ import { Subject } from 'rxjs';
 export class EventService {
 
   constructor() { }
-
-  private deadlineAddedSubject = new Subject<number>();
-
-  deadlineAdded$ = this.deadlineAddedSubject.asObservable();
-
-  emitDeadlineAdded(id: number) {
-    this.deadlineAddedSubject.next(id);
-  }
 }

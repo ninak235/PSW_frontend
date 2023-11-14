@@ -6,48 +6,31 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { EventService } from 'src/app/shared/event.service';
+import { Problem } from '../../marketplace/model/problem.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'xp-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnChanges {
+export class HomeComponent implements OnInit {
 
   user: User;
-  private deadlineAddedSubscription: Subscription;
   
-  constructor(private notifications: NotificationsService, private router: Router, private probService: MarketplaceService, private authService: AuthService, private eventService: EventService) {}
- 
-  //OBRISATI
-  ngOnChanges(changes: SimpleChanges): void {
-     this.deadlineAddedSubscription = this.eventService.deadlineAdded$.subscribe((id) => {
-      this.handleDeadlineAdded(id);
-    });
-  }
+  constructor(private notifications: NotificationsService, private router: Router, private probService: MarketplaceService, private authService: AuthService, private datePipe: DatePipe) {}
    
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.user = user;
     })
-    this.deadlineAddedSubscription = this.eventService.deadlineAdded$.subscribe((id) => {
-      this.handleDeadlineAdded(id);
-    });
     this.showNotification();
-  }
-
-  handleDeadlineAdded(id: number) {
-    console.log("stigao dovde");
-    if (this.user.id == id) {
-      this.notifications.info('Zadat deadline!', 'Administrator je dodao rok na vasu turu!', {
-            timeOut: 2500,
-            showProgressBar: true,
-            clickToClose: true
-          });
+    
+    if (this.user.role == 'author') {
+      this.notifyAboutDeadline();
     }
   }
-
 
   showNotification(): void {
     this.probService.isThereUnreadMessage(this.user.id || 0).subscribe(
@@ -67,13 +50,18 @@ export class HomeComponent implements OnInit, OnChanges {
     )
   }
 
-   notifyAboutDeadline(id: number): void{
-    if(this.user.id == id)
-    this.notifications.info('Zadat vam je novi deadline kao autoru!', 'Udjite da biste videli zadati deadline!', {
-            timeOut: 2500,
-            showProgressBar: true,
-            clickToClose: true
-          });
-
+  notifyAboutDeadline(): void {
+    this.probService.getProblemWithClosestDeadline(this.user.id).subscribe({
+      next: (problem: Problem) => {
+        const toast = this.notifications.error('Rok: ' + this.datePipe.transform(problem.deadline, 'shortDate') + ' je najblize!', 'Problemu: "' + problem.description + '" najskorije istice rok, pogledajte sve detaljnije', {
+          timeOut: 3500,
+          showProgressBar: true,
+          clickToClose: true
+        });
+        toast.click?.subscribe(() => {
+          this.router.navigate(['problems']);
+        })
+      }
+    });
   }
 }

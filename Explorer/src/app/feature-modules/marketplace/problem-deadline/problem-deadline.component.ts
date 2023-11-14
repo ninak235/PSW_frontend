@@ -13,7 +13,7 @@ export class ProblemDeadlineComponent {
 
   @Input() problem: Problem;
   @Output() problemUpdated = new EventEmitter<null>();
-  @Output() deadlineAdded = new EventEmitter<number>();
+  //@Output() deadlineAdded = new EventEmitter<number>();
 
   selectedDate = new FormControl(new Date());
   showForm = false;
@@ -46,7 +46,7 @@ export class ProblemDeadlineComponent {
     this.service.addDeadline(updatedProblem).subscribe({
       next: (_) => {
         this.problemUpdated.emit();
-        this.deadlineAdded.emit(updatedProblem.idGuide);
+        //this.deadlineAdded.emit(updatedProblem.idGuide);
         this.showForm = false;
       }
     });

@@ -25,6 +25,7 @@ import { AdministrationModule } from './feature-modules/administration/administr
 //import { MapComponent } from './shared/map/map.component';
 import { ClubModule } from './feature-modules/club/club.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { CommonModule, DatePipe } from '@angular/common'
 
 @NgModule({
   declarations: [AppComponent],
@@ -50,13 +51,14 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
+    CommonModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true,
-    }, EventService
+    }, DatePipe
   ],
   bootstrap: [AppComponent],
 })

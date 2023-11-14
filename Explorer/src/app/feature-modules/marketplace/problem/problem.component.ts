@@ -37,9 +37,7 @@ export class ProblemComponent implements OnInit {
   shouldRenderDeadline: boolean = false;
   newMessProbId: number = 0;
   
-
-  private deadlineAddedSubscription: Subscription;
-  constructor(private notifications: NotificationsService, private service: MarketplaceService, private authService: AuthService, private eventService: EventService) { }
+  constructor(private service: MarketplaceService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -59,11 +57,6 @@ export class ProblemComponent implements OnInit {
     }
 
     this.isThereNewMessages();
-
-    //////
-    this.deadlineAddedSubscription = this.eventService.deadlineAdded$.subscribe((id) => {
-     // this.handleDeadlineAdded(id);
-    });
   } 
 
   isThereNewMessages() {
@@ -74,16 +67,7 @@ export class ProblemComponent implements OnInit {
     )
   }
 
-  handleDeadlineAdded() {
-    console.log("stigao dovde");
-    //if (this.user.id == id) {
-      this.notifications.info('Zadat deadline!', 'Administrator je dodao rok na vasu turu!', {
-            timeOut: 2500,
-            showProgressBar: true,
-            clickToClose: true
-          });
-   // }
-  }
+  
 
   getUnsolvedProblems(): void {
     this.shouldRenderForm = false;
