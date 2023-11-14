@@ -5,6 +5,10 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Time } from '@angular/common';
+import { ProblemMessage } from '../model/problem-message.model';
+import { EventService } from 'src/app/shared/event.service';
+import { Subscription } from 'rxjs';
+import { NotificationsService } from 'angular2-notifications';
 
 interface ExtendedProblem extends Problem {
   isUnsolvedForMoreThan5Days?: boolean;
@@ -31,9 +35,11 @@ export class ProblemComponent implements OnInit {
   isTourist: boolean = false;
   isAdministartor: boolean = false;
   shouldRenderDeadline: boolean = false;
+  newMessProbId: number = 0;
   
 
-  constructor(private service: MarketplaceService, private authService: AuthService) { }
+  private deadlineAddedSubscription: Subscription;
+  constructor(private notifications: NotificationsService, private service: MarketplaceService, private authService: AuthService, private eventService: EventService) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -51,11 +57,38 @@ export class ProblemComponent implements OnInit {
       this.isAdministartor = true;
       this.getUnsolvedProblems();
     }
+
+    this.isThereNewMessages();
+
+    //////
+    this.deadlineAddedSubscription = this.eventService.deadlineAdded$.subscribe((id) => {
+     // this.handleDeadlineAdded(id);
+    });
   } 
+
+  isThereNewMessages() {
+    this.service.isThereUnreadMessage(this.user.id || 0).subscribe(
+      (idProblem: number) => {
+        this.newMessProbId = idProblem;
+      }
+    )
+  }
+
+  handleDeadlineAdded() {
+    console.log("stigao dovde");
+    //if (this.user.id == id) {
+      this.notifications.info('Zadat deadline!', 'Administrator je dodao rok na vasu turu!', {
+            timeOut: 2500,
+            showProgressBar: true,
+            clickToClose: true
+          });
+   // }
+  }
 
   getUnsolvedProblems(): void {
     this.shouldRenderForm = false;
     this.shouldRenderChat = false;
+    this.shouldRenderDeadline = false;
     this.service.getUnsolvedProblems().subscribe({
       next: (result: PagedResults<Problem>) => {
         this.problem = result.results;
@@ -119,6 +152,7 @@ export class ProblemComponent implements OnInit {
   getTourstProblems(): void {
     this.shouldRenderForm = false;
     this.shouldRenderChat = false;
+    this.shouldRenderDeadline = false;
     this.service.getTourstProblems(this.user.id).subscribe({
       next: (result: PagedResults<Problem>) => {
         this.problem = result.results;
@@ -133,6 +167,7 @@ export class ProblemComponent implements OnInit {
   getGuideProblems(): void {
     this.shouldRenderForm = false;
     this.shouldRenderChat = false;
+    this.shouldRenderDeadline = false;
     this.service.getGuideProblems(this.user.id).subscribe({
       next: (result: PagedResults<Problem>) => {
         this.problem = result.results;
@@ -199,9 +234,18 @@ export class ProblemComponent implements OnInit {
       () => {
         // This block will execute whether the request is successful or not
         this.isSolving = false;
+      
+        this.service.getMessagesByProblemId(this.selectedProblem.id || 0).subscribe({
+          next: (result: PagedResults<ProblemMessage>) => {
+            console.log("duzina result-a: ", result.totalCount);
+            result.results.forEach(mess => {
+              mess.isRead = true;
+              this.service.readMessages(mess).subscribe();
+          });
       }
-    );
+    }) 
+   });
+
   }
-  
 }
 

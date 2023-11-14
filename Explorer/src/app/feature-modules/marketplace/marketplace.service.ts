@@ -56,6 +56,10 @@ export class MarketplaceService {
     return this.http.get<PagedResults<Problem>>(environment.apiHost + 'problem/byGuide/' + id);
   }
 
+  readMessages(message: ProblemMessage): Observable<void> {
+    return this.http.put<void>(environment.apiHost + 'administration/message/' + message.id, message);
+  }
+
   addMessage(message: ProblemMessage): Observable<ProblemMessage> {
     return this.http.post<ProblemMessage>(environment.apiHost + 'administration/message', message);
   }

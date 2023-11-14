@@ -13,29 +13,24 @@ export class ProblemDeadlineComponent {
 
   @Input() problem: Problem;
   @Output() problemUpdated = new EventEmitter<null>();
+  @Output() deadlineAdded = new EventEmitter<number>();
 
   selectedDate = new FormControl(new Date());
-  showForm = false; // Initialize as false to hide the form initially
+  showForm = false;
 
   toggleForm(): void {
-    // Toggle the form visibility
     this.showForm = !this.showForm;
     console.log(this.showForm)
 
-
-    // Reset the form and set the date to the default value when showing the form
     if (this.showForm) {
       this.selectedDate.setValue(new Date());
-      // Optionally, you can reset the form here if needed
-      // this.deadlineForm.resetForm();
     }
   }
 
   addDeadline(): void {
-    // Update the deadline property of the problem object
     const selectedDateValue = this.selectedDate.value || new Date();
 
-    // Create a new problem object with updated information
+
     const updatedProblem: Problem = {
       id: this.problem.id,
       category: this.problem.category || "",
@@ -48,13 +43,10 @@ export class ProblemDeadlineComponent {
       deadline: selectedDateValue
     };
 
-    // Call the service or perform any necessary actions to update the backend
     this.service.addDeadline(updatedProblem).subscribe({
       next: (_) => {
-        // Emit the problemUpdated event
         this.problemUpdated.emit();
-
-        // Close the form after submission
+        this.deadlineAdded.emit(updatedProblem.idGuide);
         this.showForm = false;
       }
     });

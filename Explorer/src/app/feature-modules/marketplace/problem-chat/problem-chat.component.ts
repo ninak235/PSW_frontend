@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ProblemMessage } from '../model/problem-message.model';
 import { Problem } from '../model/problem.model';
 import { MarketplaceService } from '../marketplace.service';
@@ -14,7 +14,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './problem-chat.component.html',
   styleUrls: ['./problem-chat.component.css']
 })
-export class ProblemChatComponent implements OnChanges{
+export class ProblemChatComponent implements OnChanges, OnInit{
   messages: ProblemMessage[];
   @Input() problem: Problem;
   otherName: string;
@@ -32,10 +32,21 @@ export class ProblemChatComponent implements OnChanges{
     this.getOtherName();
   }
 
+  ngOnInit(): void {
+    this.getMessages();
+  }
+
   getMessages(): void{
     this.service.getMessagesByProblemId(this.problem.id || 0).subscribe({
       next: (result: PagedResults<ProblemMessage>) => {
-        this.messages = result.results;
+          this.messages = result.results;
+          
+          this.messages.forEach(mess => {
+            if (mess.idSender != this.user.id) {
+              mess.isRead = true;
+              this.service.readMessages(mess).subscribe();
+            }
+          });
       }
     })
   }

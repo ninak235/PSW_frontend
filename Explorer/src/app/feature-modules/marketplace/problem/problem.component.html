@@ -23,8 +23,12 @@
                         <button color="primary" (click)="onProblemReplay(p)" mat-icon-button [disabled]="p.isSolved || isSolving || disabledRows.includes(i)">
                             <mat-icon>reply</mat-icon>
                         </button>
-                        <button color="primary" (click)="onAllMesagges(p)" mat-icon-button [disabled]="p.isSolved || isSolving || disabledRows.includes(i)">
+                        <button *ngIf="p.id != newMessProbId" color="primary" (click)="onAllMesagges(p)" mat-icon-button [disabled]="p.isSolved || isSolving || disabledRows.includes(i)">
                             <mat-icon>message</mat-icon>
+                        </button>
+                        <button *ngIf="p.id == newMessProbId" color="primary" (click)="onAllMesagges(p)" mat-icon-button
+                            [disabled]="p.isSolved || isSolving || disabledRows.includes(i)">
+                            <mat-icon>add_alert</mat-icon>
                         </button>
                         <button *ngIf="isTourist" color="primary" (click)="solveProblem(p, i)" mat-icon-button [disabled]="p.isSolved || isSolving || disabledRows.includes(i)">
                             <mat-icon>done_all</mat-icon>
@@ -49,7 +53,7 @@
             <xp-problem-chat *ngIf="shouldRenderChat" [problem]="selectedProblem"></xp-problem-chat>
         </div>
         <div>
-            <xp-problem-deadline *ngIf="shouldRenderDeadline" [problem]="selectedProblem" (problemUpdated)="getUnsolvedProblems()"></xp-problem-deadline>
+            <xp-problem-deadline *ngIf="shouldRenderDeadline" [problem]="selectedProblem" (deadlineAdded)="handleDeadlineAdded()" (problemUpdated)="getUnsolvedProblems()"></xp-problem-deadline>
         </div>
 
     </div>
