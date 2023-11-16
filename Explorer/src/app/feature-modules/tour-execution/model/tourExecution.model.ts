@@ -31,7 +31,7 @@ export interface TourExecution {
     tourCharacteristics: TourCharacteristic[];
     tourPoints: TourPoint[];
   }
-  
+  // Great
   export interface TourCharacteristic {
     distance: number;
     duration: number;
