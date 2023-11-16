@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { environment } from 'src/env/environment';
 import { TourExecutionPosition } from './model/tourExecutionPosition.model';
-import { TourExecution } from './model/tourExecution.model';
+import { Tour, TourExecution } from './model/tourExecution.model';
 import { map } from 'rxjs';
 import { catchError } from 'rxjs';
 
@@ -54,5 +54,20 @@ export class TourExecutionService {
       tourExecutionId
     );
   }
-  
+  getPurchasedTours(touristId: number): Observable<PagedResults<Tour>> {
+    const url = `${environment.apiHost}tokens/purchasedTours/${touristId}`;
+    return this.http.get<PagedResults<Tour>>(url);
+  }
+
+  createTourExecution(userId: number, tourId: number, longitude: number, latitude: number): any {
+    const url = `${environment.apiHost}tourExecution/create`;
+    console.log(url);
+    const body = {
+      userId: userId,
+      tourId: tourId,
+      longitude: longitude,
+      latitude: latitude,
+    };
+    return this.http.post(url, body);
+  }
 }
