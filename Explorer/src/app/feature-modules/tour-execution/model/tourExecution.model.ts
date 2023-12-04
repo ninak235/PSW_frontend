@@ -45,6 +45,8 @@ export interface TourExecution {
     description: string;
     latitude: number;
     longitude: number;
+    secret: string;
+
   }
   
   export interface TourExecutionDetail {
@@ -60,5 +62,6 @@ export interface TourExecution {
     tourExecutionId: number;
     completionTime: string;
     completed: boolean;
+    secret: string;
   }
   
