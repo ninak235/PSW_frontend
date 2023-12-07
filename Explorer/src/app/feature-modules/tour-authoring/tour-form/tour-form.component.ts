@@ -58,9 +58,14 @@ export class TourFormComponent implements OnInit {
       description: this.tourForm.value.description || '',
       status: Status.Draft,
       difficultyLevel: this.tourForm.value.difficulytLevel as DifficultyLevel,
-      guideId: this.tokenStorage.getUserId(),
+
+      //guideId: this.tokenStorage.getUserId(),
       //price:0,
       price: parseInt(this.tourForm.value.price || ''),
+
+      UserId: this.tokenStorage.getUserId(),
+
+
       tags: ['xzy', 'abc'],
       tourPoints: [],
       tourCharacteristics: [],
