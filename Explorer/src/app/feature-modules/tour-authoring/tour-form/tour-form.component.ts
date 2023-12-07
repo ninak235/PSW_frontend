@@ -3,6 +3,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -21,7 +22,7 @@ import { TourAuthoringService } from '../tour-authoring.service';
   templateUrl: './tour-form.component.html',
   styleUrls: ['./tour-form.component.css'],
 })
-export class TourFormComponent implements OnChanges {
+export class TourFormComponent implements OnInit {
   difficultyLevels = Object.values(DifficultyLevel);
   @Output() addTourClicked = new EventEmitter<null>();
   @Output() tourUpdated = new EventEmitter<null>();
@@ -33,18 +34,19 @@ export class TourFormComponent implements OnChanges {
     private tokenStorage: TokenStorage
   ) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.tourForm.reset();
-    if (this.shouldEdit) {
-      this.tourForm.patchValue(this.tour);
-    }
-  }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   this.tourForm.reset();
+  //   if (this.shouldEdit) {
+  //     this.tourForm.patchValue(this.tour);
+  //   }
+  // }
 
   tourForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     status: new FormControl('', [Validators.required]),
     difficulytLevel: new FormControl('', [Validators.required]),
+    price: new FormControl('', [Validators.required]),
   });
 
   ngOnInit(): void {}
@@ -57,7 +59,8 @@ export class TourFormComponent implements OnChanges {
       status: Status.Draft,
       difficultyLevel: this.tourForm.value.difficulytLevel as DifficultyLevel,
       guideId: this.tokenStorage.getUserId(),
-      price: 0,
+      //price:0,
+      price: parseInt(this.tourForm.value.price || ''),
       tags: ['xzy', 'abc'],
       tourPoints: [],
       tourCharacteristics: [],
