@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Profile } from '../model/profile.model';
 import { AdministrationService } from '../administration.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {GoogleAnalyticsService} from "../../../infrastructure/google-analytics/google-analytics.service";
 import { TouristXP } from '../model/tourist-xp.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
