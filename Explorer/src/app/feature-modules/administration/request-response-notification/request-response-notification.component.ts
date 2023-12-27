@@ -4,6 +4,7 @@ import { AdministrationService } from '../administration.service';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import {GoogleAnalyticsService} from "../../../infrastructure/google-analytics/google-analytics.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-request-response-notification',
@@ -16,7 +17,8 @@ export class RequestResponseNotificationComponent implements OnInit{
 
   constructor(private tokenStorage: TokenStorage,
               private service: AdministrationService,
-              private googleAnalytics: GoogleAnalyticsService) {}
+              private googleAnalytics: GoogleAnalyticsService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.googleAnalytics.sendPageView(window.location.pathname);
@@ -43,5 +45,6 @@ export class RequestResponseNotificationComponent implements OnInit{
       }
     })
   }
+
 
 }

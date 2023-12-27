@@ -6,6 +6,7 @@ import {GoogleAnalyticsService} from "../../../infrastructure/google-analytics/g
 import { TouristXP } from '../model/tourist-xp.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Account } from '../model/account.model';
 
 @Component({
   selector: 'xp-profile',
@@ -16,6 +17,7 @@ export class ProfileComponent implements OnInit {
 
   userProfile: Profile = {} as Profile;
   isEditMode: boolean = false;
+  isFormOpen = false;
   shouldRenderNotifications: boolean = false;
   touristXP: TouristXP[] = [];
 
@@ -92,7 +94,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onBellClicked(): void{
-    this.shouldRenderNotifications = true;
+    this.shouldRenderNotifications = !this.shouldRenderNotifications;
   }
 
 }

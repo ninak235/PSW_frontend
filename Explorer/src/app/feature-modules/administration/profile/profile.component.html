@@ -1,7 +1,20 @@
 <div class="profile-container">
   <img class="title profile-image" [src]="userProfile.profileImage" alt="Profile Image" onerror="this.src='assets/images/profile_img.png'">
-  <h2 class="title">PROFILE INFO</h2>
+    <div class="notif">
+      <h2 class="title">PROFILE INFO</h2>
 
+      <div class="notification-icon" (click)="onBellClicked()">
+        <img src="assets/images/bell-ring.png" alt="Notification Icon">
+      </div>
+
+      
+    </div>
+
+    <div class="notification-container">
+      <xp-request-response-notification *ngIf="shouldRenderNotifications" ></xp-request-response-notification>
+    </div>
+
+    
   <div class="form-container">
     <div class="form-group">
       <label for="name">Name:</label>
@@ -31,13 +44,7 @@
       <label>Level:</label>
       <label *ngFor="let txp of touristXP">{{txp.level}}</label>
     </div>-->
-    
     <button class="edit-button" (click)="toggleEditMode()">{{ isEditMode ? 'Save' : 'Edit' }}</button>
-    <div class="notification-icon">
-      <mat-icon (click)="onBellClicked()">notifications</mat-icon>
-    </div>
-    <div class="notification-container">
-      <xp-request-response-notification *ngIf="shouldRenderNotifications"></xp-request-response-notification>
-    </div>
+    
   </div>
 </div>

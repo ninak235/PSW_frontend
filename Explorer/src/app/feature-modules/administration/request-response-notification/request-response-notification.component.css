@@ -22,18 +22,17 @@
     font-display: swap;
   }
   h2.title {
+    color: #004093;
     text-align: center; /* Centriranje teksta */
     font-size: 24px; /* Promena veličine slova */
     margin-bottom: 20px; /* Dodavanje razmaka ispod naslova */
     margin-top: 20px;
     font-family: 'Trip', sans-serif; /* Primenjivanje fonta 'Trip' na naslov h2 s klasom 'title' */
-  
   }
   
 #notifications {
     margin-top: 20px;
     margin-left: 20px;
-    background-image: url("/assets/images/background.jpg");
 
     font-family: 'Trip-Sans-Regular', sans-serif;
     max-width: 900px; /* Postavljanje maksimalne širine */
@@ -64,7 +63,6 @@
   
   .notification-comment {
     font-size: 18px;
-    color: #221853;
   }
   
   .notification-time {

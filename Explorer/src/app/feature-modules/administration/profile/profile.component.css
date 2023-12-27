@@ -10,38 +10,44 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
 }
 
-.form-group {
-  margin-bottom: 15px;
-  display: flex;
-  flex-direction: column; /* Display label and input in a column */
-  align-items: center; /* Center items horizontally */
-}
-
-.form-group label {
-  font-weight: bold;
-  color: #004093;
-  margin-bottom: 5px; /* Add some space between label and input */
-}
-
 .profile-container .form-group input,
 .profile-container .form-group textarea {
   border: none;
   outline: none;
   border-radius: 0;
   border-bottom: 1px solid #ddd;
-  padding: 5px; /* Adjust padding as needed */
-  width: 100%; /* Ensure the input takes up the full width */
-  box-sizing: border-box; /* Include padding in the width calculation */
+  padding: 5px;
+  width: 250px; /* Set width to 'auto' to match the text size */
+  box-sizing: border-box;
+  font-size: 1em; /* Adjust font size as needed */
+}
+
+.notif {
+  display: flex;
+  flex-direction: row;
+}
+
+textarea {
+  resize: vertical;
+  width: auto; /* Set width to 'auto' to match the text size */
+  height: auto; /* Allow textarea to adjust its height based on content */
+}
+
+/* Additional styles for consistency */
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form-group label {
-  font-style: bold;
+  font-weight: bold;
   color: #004093;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #004093; /* Dodajte podvučenost bojom koja odgovara tekstu */
 }
 
-.form-group{
-  gap: 10px;
-}
 
 .title {
   color: #004093;
@@ -81,11 +87,16 @@ textarea {
 }
 
 .notification-icon {
-  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.notification-icon img{
+  width: 30px;
+  height: 30px;
 }
 
 .notification-container {
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .profile-container .form-group input,
