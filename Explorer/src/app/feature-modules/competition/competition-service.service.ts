@@ -36,4 +36,10 @@ export class CompetitionServiceService {
       environment.apiHost + 'competition/getAllCompetitionAuthorId/' + id
     );
   }
+
+  getAll(): Observable<PagedResults<Competition>> {
+    return this.http.get<PagedResults<Competition>>(
+      environment.apiHost + 'competition/allCompetitions'
+    );
+  }
 }

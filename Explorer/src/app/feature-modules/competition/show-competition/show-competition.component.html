@@ -20,10 +20,9 @@
               </div>
 
               <div class="desc-container">
-                <p class="description">{{ competition.status }}</p>
+                <p class="description" [ngStyle]="{'color': competition.status === 'Open' ? 'green' : 'red'}">{{ competition.status }}</p>
               </div>
   
-             
             </div>
   
           </div>

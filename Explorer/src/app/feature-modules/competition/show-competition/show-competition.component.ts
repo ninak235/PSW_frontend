@@ -35,7 +35,32 @@ export class ShowCompetitionComponent implements OnInit{
     this.authService.user$.subscribe(user => {
       this.user = user;
     })
-    this.getAllCompetitionsByAuthorId(this.user?.id || -1)
+    if(this.user?.role == 'author'){
+      this.getAllCompetitionsByAuthorId(this.user?.id || -1)
+    }
+    else if(this.user?.role == 'tourist'){
+      this.getAll()
+    }
+    
+  }
+
+  getAll() : void {
+    this.competitionService.getAll().subscribe({
+      next: (result: PagedResults<Competition>) => {
+        this.competitions = result.results;
+        this.competitions.forEach(com => {
+          this.tourService.getTourByTourId(com.tourId).subscribe({
+            next: (resultTour: Tour) =>{
+              com.name = resultTour.name;
+            }
+          });
+          });
+        },
+      error(err: any) {
+        console.log(err);
+      }
+    })
+
   }
 
   getAllCompetitionsByAuthorId(id: number) : void {
