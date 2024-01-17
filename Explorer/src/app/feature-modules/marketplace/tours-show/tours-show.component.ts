@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Tour } from '../../tour-authoring/tour/model/tour.model';
 import { MarketplaceService } from '../marketplace.service';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { TourPurchaseToken } from '../model/TourPurchaseToken.model';
   templateUrl: './tours-show.component.html',
   styleUrls: ['./tours-show.component.css'],
 })
-export class ToursShowComponent {
+export class ToursShowComponent implements OnInit {
   loggedInUser: User = {
     id: 0,
     username: '',
@@ -45,6 +45,7 @@ export class ToursShowComponent {
     this.getAllTours();
     this.getExecutions();
   }
+  ngOnInit(): void {}
   getAllReviews() {
     this.marketplaceService.getAllReviews().subscribe({
       next: (response) => {
